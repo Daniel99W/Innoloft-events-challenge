@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EventsAPI.Core\EventsAPI.Core.csproj" />
     <ProjectReference Include="..\EventsAPI.DAL\EventsAPI.DAL.csproj" />
   </ItemGroup>

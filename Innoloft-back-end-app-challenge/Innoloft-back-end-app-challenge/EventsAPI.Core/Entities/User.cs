@@ -17,11 +17,8 @@ namespace EventsAPI.Core.Entities
         public string Website { get; set; }
         public int AddressId { get; set; }
         public int CompanyId { get; set; }
-        public int GeoId { get; set; }
-        public Geo Geo { get; set; }
         public Address Address { get; set; }
         public Company Company { get; set; }
-
         public List<Event> Events { get; set; }
     }
 }
