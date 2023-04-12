@@ -33,7 +33,7 @@ namespace Innoloft_back_end_app_challenge.Controllers
         {
             var user = await _userRepository.Read(eventPostDto.UserId);
             if (user == null)
-                return BadRequest(EventErrMessages.UserNotFound);
+                return NotFound(EventErrMessages.UserNotFound);
             var ev = _mapper.Map<Event>(eventPostDto);
             _eventRepository.Create(ev);
             await _eventRepository.SaveChangesAsync();
@@ -98,12 +98,13 @@ namespace Innoloft_back_end_app_challenge.Controllers
             {
                 EventId = ev.Id,
                 UserId = ev.UserId,
-                IsParticipating = false
+                IsParticipating = true
             };
             _eventRegistration.Create(registration);
             _eventRegistration.SaveChanges();
             return Ok();
         }
+
 
     }
 }
