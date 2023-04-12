@@ -9,6 +9,7 @@ namespace Innoloft_back_end_app_challenge.Profiles
         public UserProfile()
         {
             CreateMap<User, UserPostDto>().ReverseMap();
+            CreateMap<User, UserGetDto>().ReverseMap();
         }
     }
 }

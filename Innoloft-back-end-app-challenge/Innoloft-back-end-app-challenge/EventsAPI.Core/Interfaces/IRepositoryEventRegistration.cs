@@ -1,5 +1,4 @@
 ﻿using EventsAPI.Core.Entities;
-using EventsAPI.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventsAPI.Core.Interfaces
 {
-    public interface IRepositoryEvent : IRepository<Event>
+    public interface IRepositoryEventRegistration : IRepository<EventRegistration>
     {
-        public Task<Pagination<Event>> GetEventsByUserId(int page, int itemsPerPage, int UserId);
     }
 }
