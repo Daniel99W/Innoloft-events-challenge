@@ -10,6 +10,7 @@
             public const string EditEvent = $"EditEvent/{IdRoute}";
             public const string DeleteEvent = $"DeleteEvent/{IdRoute}";
             public const string RegisterToEvent = "RegisterToEvent";
+            public const string InviteParticipants = "InviteParticipants";
         }
         public static class UserRoutes
         {

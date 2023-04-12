@@ -105,6 +105,5 @@ namespace Innoloft_back_end_app_challenge.Controllers
             return Ok();
         }
 
-
     }
 }
