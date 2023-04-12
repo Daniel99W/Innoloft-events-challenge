@@ -7,6 +7,6 @@ namespace Innoloft_back_end_app_challenge.Dtos.Events
         [Required]
         public int EventId { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public int ParticipatorId { get; set; }
     }
 }

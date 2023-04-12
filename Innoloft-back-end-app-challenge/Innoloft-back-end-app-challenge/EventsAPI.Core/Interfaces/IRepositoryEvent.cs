@@ -10,6 +10,6 @@ namespace EventsAPI.Core.Interfaces
 {
     public interface IRepositoryEvent : IRepository<Event>
     {
-        public Task<Pagination<Event>> GetEventsByUserId(int page, int itemsPerPage, int UserId);
+        public Task<Pagination<Event>> GetEventsByCreatorId(int page, int itemsPerPage, int CreatorId);
     }
 }

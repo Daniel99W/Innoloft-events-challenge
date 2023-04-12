@@ -8,8 +8,8 @@ namespace EventsAPI.Core.Entities
 {
     public class Event : BaseEntity
     {
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int CreatorId { get; set; }
+        public User Creator { get; set; }
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }

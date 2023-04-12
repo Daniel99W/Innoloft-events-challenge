@@ -18,15 +18,15 @@ namespace EventsAPI.DAL.Repositories
 
         }
 
-        public async Task<Pagination<Event>> GetEventsByUserId(int page, int itemsPerPage,int UserId)
+        public async Task<Pagination<Event>> GetEventsByCreatorId(int page, int itemsPerPage,int CreatorId)
         {
             return _eventsDbContext
                 .Events
-                .Include(ev => ev.User)
+                .Include(ev => ev.Creator)
                     .ThenInclude(user => user.Address)
-                .Include(ev => ev.User)
+                .Include(ev => ev.Creator)
                     .ThenInclude(user => user.Company)
-                .Where(ev => ev.UserId == UserId)
+                .Where(ev => ev.CreatorId == CreatorId)
                .Paginate(page, itemsPerPage);
         }
     }

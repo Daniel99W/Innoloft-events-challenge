@@ -31,7 +31,7 @@ namespace Innoloft_back_end_app_challenge.Controllers
         [Route(ApiRoutes.EventRoutes.CreateEvent)]
         public async Task<IActionResult> CreateEvent(EventPostDto eventPostDto)
         {
-            var user = await _userRepository.Read(eventPostDto.UserId);
+            var user = await _userRepository.Read(eventPostDto.CreatorId);
             if (user == null)
                 return NotFound(EventErrMessages.UserNotFound);
             var ev = _mapper.Map<Event>(eventPostDto);
@@ -44,14 +44,14 @@ namespace Innoloft_back_end_app_challenge.Controllers
         [Route(ApiRoutes.EventRoutes.GetEvents)]
         public async Task<ActionResult<Pagination<EventGetDto>>> GetEvents([FromQuery] GetUserEventDtoParams getUserEventDtoParams)
         {
-            var user = await _userRepository.Read(getUserEventDtoParams.UserId);
+            var user = await _userRepository.Read(getUserEventDtoParams.CreatorId);
             if (user == null)
                 return NotFound(EventErrMessages.UserNotFound);
             var result =
-                await _eventRepository.GetEventsByUserId(
+                await _eventRepository.GetEventsByCreatorId(
                 getUserEventDtoParams.Page,
                 getUserEventDtoParams.ItemsPerPage,
-                getUserEventDtoParams.UserId);
+                getUserEventDtoParams.CreatorId);
             var mappedResult = _mapper.Map<Pagination<EventGetDto>>(result);
             return Ok(mappedResult);
         }
@@ -87,17 +87,17 @@ namespace Innoloft_back_end_app_challenge.Controllers
         public async Task<IActionResult> RegisterToEvent(RegisterToEventDto registerToEventDto)
         {
             Event? ev = await _eventRepository.Read(registerToEventDto.EventId);
-            User? user = await _userRepository.Read(registerToEventDto.UserId);
+            User? user = await _userRepository.Read(registerToEventDto.ParticipatorId);
             if (ev == null)
                 return NotFound();
             if (user == null)
                 return NotFound();
-            if (registerToEventDto.UserId == ev.UserId)
+            if (registerToEventDto.ParticipatorId == ev.CreatorId)
                 return BadRequest("You can't register to your own event");
             EventRegistration registration = new()
             {
                 EventId = ev.Id,
-                UserId = ev.UserId,
+                ParticipatorId = registerToEventDto.ParticipatorId,
                 IsParticipating = true
             };
             _eventRegistration.Create(registration);

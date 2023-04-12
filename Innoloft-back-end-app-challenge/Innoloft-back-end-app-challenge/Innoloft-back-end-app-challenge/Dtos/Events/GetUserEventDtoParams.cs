@@ -9,6 +9,6 @@ namespace Innoloft_back_end_app_challenge.Dtos.Events
         [Required]
         public int ItemsPerPage { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public int CreatorId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using EventsAPI.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventsAPI.DAL.Migrations
 {
     [DbContext(typeof(EventsDbContext))]
-    partial class EventsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230412100240_ChangeColumnName")]
+    partial class ChangeColumnName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,9 +100,12 @@ namespace EventsAPI.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Events");
                 });
@@ -119,11 +125,14 @@ namespace EventsAPI.DAL.Migrations
                     b.Property<int>("ParticipatorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
 
-                    b.HasIndex("ParticipatorId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("EventsRegistrations");
                 });
@@ -199,13 +208,13 @@ namespace EventsAPI.DAL.Migrations
 
             modelBuilder.Entity("EventsAPI.Core.Entities.Event", b =>
                 {
-                    b.HasOne("EventsAPI.Core.Entities.User", "Creator")
+                    b.HasOne("EventsAPI.Core.Entities.User", "User")
                         .WithMany("Events")
-                        .HasForeignKey("CreatorId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Creator");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EventsAPI.Core.Entities.EventRegistration", b =>
@@ -216,15 +225,15 @@ namespace EventsAPI.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EventsAPI.Core.Entities.User", "Participator")
+                    b.HasOne("EventsAPI.Core.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("ParticipatorId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Event");
 
-                    b.Navigation("Participator");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EventsAPI.Core.Entities.User", b =>

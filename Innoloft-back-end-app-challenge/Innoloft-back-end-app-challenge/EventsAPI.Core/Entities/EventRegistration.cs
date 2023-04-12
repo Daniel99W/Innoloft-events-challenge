@@ -8,10 +8,10 @@ namespace EventsAPI.Core.Entities
 {
     public class EventRegistration : BaseEntity
     {
-        public int UserId { get; set; } 
+        public int ParticipatorId { get; set; } 
         public int EventId { get; set; }
         public Boolean IsParticipating { get; set; }
-        public User User { get; set; }
+        public User Participator { get; set; }
         public Event Event { get; set; }
     }
 }

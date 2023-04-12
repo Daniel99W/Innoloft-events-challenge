@@ -7,14 +7,13 @@
         {
             public const string CreateEvent = "CreateEvent";
             public const string GetEvents = "GetEvents";
-            public const string EditEvent = $"{IdRoute}/EditEvent";
-            public const string DeleteEvent = $"{IdRoute}/DeleteEvent";
+            public const string EditEvent = $"EditEvent/{IdRoute}";
+            public const string DeleteEvent = $"DeleteEvent/{IdRoute}";
             public const string RegisterToEvent = "RegisterToEvent";
-
         }
         public static class UserRoutes
         {
-            public const string CreateUser = $"{IdRoute}/CreateUser";
+            public const string CreateUser = $"CreateUser/{IdRoute}";
         }
     }
 }
