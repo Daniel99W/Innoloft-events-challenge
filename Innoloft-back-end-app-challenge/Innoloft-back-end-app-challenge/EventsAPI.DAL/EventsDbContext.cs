@@ -28,6 +28,7 @@ namespace EventsAPI.DAL
         public DbSet<Geo> Geos { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<InvitedUsers> InvitedUsers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

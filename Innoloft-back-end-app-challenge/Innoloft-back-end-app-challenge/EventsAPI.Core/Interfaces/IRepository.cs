@@ -14,7 +14,6 @@ namespace EventsAPI.Core.Interfaces
         T Update(T obj);
         void SaveChanges();
         Task SaveChangesAsync();
-
         Task<IEnumerable<T>> GetAll();
     }
 }

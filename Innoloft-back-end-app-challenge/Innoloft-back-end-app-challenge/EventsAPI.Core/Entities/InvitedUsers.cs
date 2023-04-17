@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace EventsAPI.Core.Entities
 {
-    public class EventRegistration : BaseEntity
+    public class InvitedUsers : BaseEntity
     {
-        public int ParticipatorId { get; set; } 
+        public int GuestId { get; set; } 
         public int EventId { get; set; }
         public bool IsParticipating { get; set; }
-        public User Participator { get; set; }
+        public User Guest { get; set; }
         public Event Event { get; set; }
     }
 }

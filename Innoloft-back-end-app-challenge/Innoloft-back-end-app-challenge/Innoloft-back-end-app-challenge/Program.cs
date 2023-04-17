@@ -18,6 +18,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IRepositoryUser,UserRepository>();
 builder.Services.AddScoped<IRepositoryEvent,EventRepository>();
 builder.Services.AddScoped<IRepositoryEventRegistration,EventRegistrationRepository>();
+builder.Services.AddScoped<IRepositoryInvitedUsers, InvitedUsersRepository>();
 builder.Services.AddDbContext<EventsDbContext>(options =>
 {
     options.UseMySql(builder.Configuration.GetConnectionString("MySqlConn"),

@@ -11,6 +11,7 @@
             public const string DeleteEvent = $"DeleteEvent/{IdRoute}";
             public const string RegisterToEvent = "RegisterToEvent";
             public const string InviteParticipants = "InviteParticipants";
+            public const string AcceptInvitation = $"AcceptEventInvitation/{IdRoute}";
         }
         public static class UserRoutes
         {

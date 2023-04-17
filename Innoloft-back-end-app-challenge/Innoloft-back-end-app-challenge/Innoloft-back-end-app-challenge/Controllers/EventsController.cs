@@ -5,6 +5,7 @@ using EventsAPI.Core.Utilities;
 using Innoloft_back_end_app_challenge.Dtos.Events;
 using Innoloft_back_end_app_challenge.ErrorMessages;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Innoloft_back_end_app_challenge.Controllers
 {
@@ -15,16 +16,19 @@ namespace Innoloft_back_end_app_challenge.Controllers
         private IRepositoryEvent _eventRepository;
         private IRepositoryUser _userRepository;
         private IRepositoryEventRegistration _eventRegistration;
+        private IRepositoryInvitedUsers _invitedUsers;
         public EventsController(
             IMapper mapper, 
             IRepositoryEvent eventRepository,
             IRepositoryUser userRepository, 
-            IRepositoryEventRegistration eventRegistration)
+            IRepositoryEventRegistration eventRegistration,
+            IRepositoryInvitedUsers invitedUsers)
         {
             _mapper = mapper;
             _eventRepository = eventRepository;
             _userRepository = userRepository;
             _eventRegistration = eventRegistration;
+            _invitedUsers = invitedUsers;
         }
 
         [HttpPost]
@@ -105,5 +109,44 @@ namespace Innoloft_back_end_app_challenge.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route(ApiRoutes.EventRoutes.InviteParticipants)]
+        public async Task<IActionResult> InviteParticipants(InviteParticipantsPostDto inviteParticipantsPostDto)
+        {
+            Event? ev = await _eventRepository.Read(inviteParticipantsPostDto.EventId);
+            if (ev == null)
+                return NotFound("The event  do not exist");
+            foreach(var guestId in inviteParticipantsPostDto.participantsIds)
+            {
+                User? user = await _userRepository.Read(guestId);
+                if (user == null)
+                    return NotFound("This do not exist");
+                if (user.Id == inviteParticipantsPostDto.CreatorId)
+                    return BadRequest("You can't invite yourself");
+                _invitedUsers.Create(new InvitedUsers()
+                {
+                    EventId = ev.Id,
+                    GuestId = guestId,
+                    IsParticipating = false
+                });
+                _invitedUsers.SaveChanges();
+            }
+            return NoContent();
+        }
+
+        [HttpPatch]
+        [Route(ApiRoutes.EventRoutes.AcceptInvitation)]
+        public async Task<IActionResult> AcceptInvitation(AcceptInvitationDto acceptInvitationDto,int Id)
+        {
+            InvitedUsers? invitedUsers = await _invitedUsers.Read(Id);
+            User? user = await _userRepository.Read(acceptInvitationDto.GuestId);
+            if (invitedUsers == null)
+                return NotFound("This invitation do not exist");
+            if (user == null)
+                return NotFound("This user do not exist");
+            invitedUsers.IsParticipating = true;
+            _invitedUsers.SaveChanges();
+            return NoContent();
+        }
     }
 }
