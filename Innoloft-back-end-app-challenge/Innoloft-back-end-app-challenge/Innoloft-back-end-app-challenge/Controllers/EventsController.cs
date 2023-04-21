@@ -5,7 +5,6 @@ using EventsAPI.Core.Utilities;
 using Innoloft_back_end_app_challenge.Dtos.Events;
 using Innoloft_back_end_app_challenge.ErrorMessages;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Innoloft_back_end_app_challenge.Controllers
 {
