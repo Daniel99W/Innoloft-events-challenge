@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.WebHost.ConfigureKestrel(options =>
-options.Listen(System.Net.IPAddress.Parse("10.128.0.6"), 5224);
+options.Listen(System.Net.IPAddress.Parse("10.128.0.6"), 5224));
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
