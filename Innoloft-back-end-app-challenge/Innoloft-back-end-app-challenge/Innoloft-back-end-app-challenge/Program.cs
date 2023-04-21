@@ -9,14 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.WebHost.ConfigureKestrel(
+    options => options.Listen(System.Net.IPAddress.Parse(builder.Configuration["hostIp"], builder.Configuration["port"])));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddScoped<IRepositoryUser,UserRepository>();
-builder.Services.AddScoped<IRepositoryEvent,EventRepository>();
-builder.Services.AddScoped<IRepositoryEventRegistration,EventRegistrationRepository>();
+builder.Services.AddScoped<IRepositoryUser, UserRepository>();
+builder.Services.AddScoped<IRepositoryEvent, EventRepository>();
+builder.Services.AddScoped<IRepositoryEventRegistration, EventRegistrationRepository>();
 builder.Services.AddScoped<IRepositoryInvitedUsers, InvitedUsersRepository>();
 builder.Services.AddDbContext<EventsDbContext>(options =>
 {
