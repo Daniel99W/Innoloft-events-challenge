@@ -16,13 +16,13 @@ services:
       - "3306:3306"
     #Specify where the persisted Data should be stored
     volumes:
-      - datafiles:/var/lib/mysql
+      - datafiles:/var/lib/mysql:rw
       - "~/desktop/EventsDatabase.sql:/docker-entrypoint-initdb.d/EventsDatabase.sql"
     restart: always
     #Specify Environment Variables for mysql
     environment: 
       MYSQL_ROOT_PASSWORD: op52yacoky
-      MYSQL_USER: root
+      #MYSQL_USER: root
       MYSQL_PASSWORD: op52yacoky
       MYSQL_DATABASE: Events
   #Api  Service
