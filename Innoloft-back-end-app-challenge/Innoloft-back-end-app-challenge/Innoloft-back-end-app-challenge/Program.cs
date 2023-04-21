@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.WebHost.ConfigureKestrel(
-    options => options.Listen(System.Net.IPAddress.Parse(builder.Configuration["hostIp"], builder.Configuration["port"])));
+    options => options.Listen(System.Net.IPAddress.Parse(builder.Configuration["hostIp"]),Convert.ToInt32(builder.Configuration["port"])));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
